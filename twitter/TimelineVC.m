@@ -73,8 +73,18 @@
     Tweet *tweet = self.tweets[indexPath.row];
     cell.tweetLabel.text = tweet.text;
     cell.authorNameLabel.text = tweet.authorName;
-
     cell.authorScreenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.authorHandle];
+    
+    // Load the image
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: tweet.authorAvatarUrl]];
+        if ( data == nil )
+            return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // WARNING: is the cell still using the same data by this point??
+            cell.authorImageView.image = [UIImage imageWithData: data];
+        });
+    });
     
     return cell;
 }
@@ -150,6 +160,45 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // Do nothing
     }];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // NOTE: I got information rearding how this is done here - http://stackoverflow.com/a/18746930
+    
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    
+    // Configure the cell for this indexPath
+    
+    Tweet *tweet = self.tweets[indexPath.row];
+    cell.tweetLabel.text = tweet.text;
+    cell.authorNameLabel.text = tweet.authorName;
+    cell.authorScreenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.authorHandle];
+    
+    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
+    // Set the width of the cell to match the width of the table view. This is important so that we'll get the
+    // correct height for different table view widths, since our cell's height depends on its width due to
+    // the multi-line UILabel word wrapping. Don't need to do this above in -[tableView:cellForRowAtIndexPath]
+    // because it happens automatically when the cell is used in the table view.
+    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    
+    // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
+    // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
+    // in the UITableViewCell subclass
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
+    // Get the actual height required for the cell
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    
+    // Add an extra point to the height to account for the cell separator, which is added between the bottom
+    // of the cell's contentView and the bottom of the table view cell.
+    height += 1;
+    
+    return height;
 }
 
 @end
