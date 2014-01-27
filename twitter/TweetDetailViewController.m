@@ -8,6 +8,7 @@
 
 #import "TweetDetailViewController.h"
 #import "Tweet.h"
+#import "TwitterClient.h"
 
 @interface TweetDetailViewController ()
 @property (strong) Tweet  *tweet;
@@ -18,6 +19,7 @@
 - (IBAction)tweetFavorited:(id)sender;
 - (IBAction)tweetRetweeted:(id)sender;
 - (IBAction)tweetReplied:(id)sender;
+- (IBAction)sendTweetButtonPressed:(id)sender;
 
 
 @end
@@ -76,5 +78,8 @@
 }
 
 - (IBAction)tweetReplied:(id)sender {
+}
+
+- (IBAction)sendTweetButtonPressed:(id)sender {
 }
 @end

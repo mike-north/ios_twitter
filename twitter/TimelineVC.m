@@ -9,6 +9,7 @@
 #import "TimelineVC.h"
 #import "TweetCell.h"
 #import "TweetDetailViewController.h"
+#import "ComposeTweetViewController.h"
 
 @interface TimelineVC ()
 
@@ -66,7 +67,10 @@
 
 - (void)composeNewTweet:(id)sender
 {
-    
+    UINavigationController *nc = self.navigationController;
+    Tweet *tweet = [[Tweet alloc] init];
+    ComposeTweetViewController *ctc = [[ComposeTweetViewController alloc] initWithTweet:tweet];
+    [nc pushViewController:ctc animated:YES];
 }
 
 
