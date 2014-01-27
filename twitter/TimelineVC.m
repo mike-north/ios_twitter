@@ -13,10 +13,8 @@
 
 @interface TimelineVC ()
 
-@property (nonatomic, strong) NSMutableArray *tweets;
 
 - (void)onSignOutButton;
-- (void)reload;
 
 @end
 

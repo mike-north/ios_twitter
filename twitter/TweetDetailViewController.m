@@ -9,6 +9,7 @@
 #import "TweetDetailViewController.h"
 #import "Tweet.h"
 #import "TwitterClient.h"
+#import "TimelineVC.h"
 
 @interface TweetDetailViewController ()
 @property (strong) Tweet  *tweet;
@@ -19,7 +20,6 @@
 - (IBAction)tweetFavorited:(id)sender;
 - (IBAction)tweetRetweeted:(id)sender;
 - (IBAction)tweetReplied:(id)sender;
-- (IBAction)sendTweetButtonPressed:(id)sender;
 
 
 @end
@@ -69,17 +69,42 @@
 }
 
 - (IBAction)tweetFavorited:(id)sender {
-}
-
-- (IBAction)retweeted:(id)sender {
+    UINavigationController *nc = self.navigationController;
+    [nc popViewControllerAnimated:YES];
+    
+    TimelineVC *timelineVc = (TimelineVC*)[nc topViewController];
+    
+    [[TwitterClient instance] favorite:self.tweet.id success:^(AFHTTPRequestOperation *operation, id response) {
+        [timelineVc reload];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to favorite :(");
+    }];
 }
 
 - (IBAction)tweetRetweeted:(id)sender {
+    UINavigationController *nc = self.navigationController;
+    [nc popViewControllerAnimated:YES];
+    
+    TimelineVC *timelineVc = (TimelineVC*)[nc topViewController];
+    
+    [[TwitterClient instance] retweet:self.tweet.id success:^(AFHTTPRequestOperation *operation, id response) {
+        [timelineVc reload];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to favorite :(");
+    }];
 }
 
 - (IBAction)tweetReplied:(id)sender {
+    UINavigationController *nc = self.navigationController;
+    [nc popViewControllerAnimated:YES];
+    
+    TimelineVC *timelineVc = (TimelineVC*)[nc topViewController];
+    
+    [[TwitterClient instance] retweet:self.tweet.id success:^(AFHTTPRequestOperation *operation, id response) {
+        [timelineVc reload];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to favorite :(");
+    }];
 }
 
-- (IBAction)sendTweetButtonPressed:(id)sender {
-}
 @end

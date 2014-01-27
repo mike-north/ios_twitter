@@ -7,10 +7,12 @@
 //
 
 #import "ComposeTweetViewController.h"
+#import "TimelineVC.h"
+#import "TwitterClient.h"
 
 @interface ComposeTweetViewController ()
     @property (weak, nonatomic) IBOutlet UITextField *tweetContentTextField;
-    @property (strong) Tweet  *tweet;
+    @property (strong, nonatomic) Tweet  *tweet;
 
     - (IBAction)sendTweetButtonPressed:(id)sender;
 @end
@@ -46,8 +48,13 @@
 }
 
 - (IBAction)sendTweetButtonPressed:(id)sender {
-    NSLog(@"Send Tweet");
     UINavigationController *nc = self.navigationController;
     [nc popViewControllerAnimated:YES];
+    TimelineVC *timelineVc = (TimelineVC*)[nc topViewController];
+    [[TwitterClient instance] composeNewTweet:self.tweetContentTextField.text success:^(AFHTTPRequestOperation *operation, id response) {
+        [timelineVc reload];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to tweet :(");
+    }];
 }
 @end
