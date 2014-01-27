@@ -65,10 +65,20 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
     [self getPath:@"1.1/statuses/home_timeline.json" parameters:params success:success failure:failure];
 }
 
-- (void)composeNewTweet:(NSString *)content success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
-    
+- (void)composeNewTweet:(NSString *)tweetContent success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *params = @{@"status": tweetContent};
+    [self postPath:@"1.1/statuses/update.json" parameters:params success:success failure:failure];
 }
+
+- (void)retweet:(NSString *)tweetId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self postPath:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweetId] parameters:nil success:success failure:failure];
+}
+
+- (void)favorite:(NSString *)tweetId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *params = @{@"id": tweetId};
+    [self postPath:@"1.1/favorites/create.json" parameters:params success:success failure:failure];
+}
+
 
 #pragma mark - Private methods
 
