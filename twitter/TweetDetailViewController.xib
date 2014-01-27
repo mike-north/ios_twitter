@@ -24,7 +24,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="0GZ-xm-d2j"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@MichaelLNorth" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSM-r5-mu5">
@@ -51,6 +51,22 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1I-mf-LKI">
+                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="h34-59-1RY"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem title="Retweet" id="nMp-VO-sIT">
+                            <connections>
+                                <action selector="tweetRetweeted:" destination="-1" id="bUI-Im-BdS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Reply" id="c4Y-tn-M03"/>
+                        <barButtonItem title="Favorite" id="Zup-t3-DXt"/>
+                    </items>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -60,8 +76,11 @@
                 <constraint firstItem="tCW-W3-95P" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="HQ6-q4-TQf"/>
                 <constraint firstItem="oSM-r5-mu5" firstAttribute="leading" secondItem="tCW-W3-95P" secondAttribute="trailing" constant="8" id="SVb-kC-BKC"/>
                 <constraint firstItem="0iV-Wu-13V" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="bhn-ls-Ozo"/>
+                <constraint firstItem="j1I-mf-LKI" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="bjR-Le-vnl"/>
+                <constraint firstAttribute="bottom" secondItem="j1I-mf-LKI" secondAttribute="bottom" id="dUr-jA-tIG"/>
                 <constraint firstItem="oSM-r5-mu5" firstAttribute="trailing" secondItem="oBz-S4-3vz" secondAttribute="trailing" id="dxL-SB-Tlo"/>
                 <constraint firstAttribute="trailing" secondItem="0iV-Wu-13V" secondAttribute="trailing" constant="20" id="gq6-bc-ix7"/>
+                <constraint firstAttribute="trailing" secondItem="j1I-mf-LKI" secondAttribute="trailing" id="gvs-s7-0gx"/>
                 <constraint firstItem="tCW-W3-95P" firstAttribute="top" secondItem="1" secondAttribute="top" constant="85" id="k58-Bn-1D2"/>
                 <constraint firstItem="0iV-Wu-13V" firstAttribute="top" secondItem="tCW-W3-95P" secondAttribute="bottom" constant="5" id="mkX-pr-P1D"/>
                 <constraint firstItem="oSM-r5-mu5" firstAttribute="top" secondItem="1" secondAttribute="top" constant="85" id="qCn-D1-2bL"/>

@@ -15,6 +15,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorScreenNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *authorAvatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *tweetContentLabel;
+- (IBAction)tweetFavorited:(id)sender;
+- (IBAction)tweetRetweeted:(id)sender;
+- (IBAction)tweetReplied:(id)sender;
+
 
 @end
 
@@ -62,4 +66,15 @@
     return me;
 }
 
+- (IBAction)tweetFavorited:(id)sender {
+}
+
+- (IBAction)retweeted:(id)sender {
+}
+
+- (IBAction)tweetRetweeted:(id)sender {
+}
+
+- (IBAction)tweetReplied:(id)sender {
+}
 @end
