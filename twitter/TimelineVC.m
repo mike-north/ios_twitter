@@ -8,6 +8,7 @@
 
 #import "TimelineVC.h"
 #import "TweetCell.h"
+#import "TweetDetailViewController.h"
 
 @interface TimelineVC ()
 
@@ -24,7 +25,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.title = @"Twitter";
+        self.title = @"My Home Timeline";
         
         [self reload];
     }
@@ -40,6 +41,16 @@
     UINib *tweetCellNib = [UINib nibWithNibName:@"TweetCell" bundle:nil];
     [self.tableView registerNib:tweetCellNib forCellReuseIdentifier:@"TweetCell"];
     
+    // Enable the "edit" menu item
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Create an "add" menu item
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc]
+                                               initWithTitle:@"+ Add"
+                                               style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(composeNewTweet:)] animated:YES];
+
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -52,6 +63,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)composeNewTweet:(id)sender
+{
+    
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -131,6 +149,11 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UINavigationController *nc = self.navigationController;
+    Tweet *tweet = self.tweets[indexPath.row];
+    TweetDetailViewController *tdvc = [[TweetDetailViewController alloc] initWithTweet:tweet];
+
+    [nc pushViewController:tdvc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
