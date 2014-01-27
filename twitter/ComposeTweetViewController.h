@@ -10,4 +10,6 @@
 
 @interface ComposeTweetViewController : UIViewController
 -(id) initWithTweet:(id)tweet;
+@property (weak) NSMutableArray *tweets;
+
 @end

@@ -10,7 +10,7 @@
                 <outlet property="authorNameLabel" destination="oBz-S4-3vz" id="qmH-vt-tpt"/>
                 <outlet property="authorScreenNameLabel" destination="oSM-r5-mu5" id="HwR-fa-jpn"/>
                 <outlet property="tweetContentLabel" destination="0iV-Wu-13V" id="Ki3-4o-Ib9"/>
-                <outlet property="view" destination="1" id="3"/>
+                <outlet property="view" destination="1" id="9Ca-ec-Zad"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -63,8 +63,16 @@
                                 <action selector="tweetRetweeted:" destination="-1" id="bUI-Im-BdS"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Reply" id="c4Y-tn-M03"/>
-                        <barButtonItem title="Favorite" id="Zup-t3-DXt"/>
+                        <barButtonItem title="Reply" id="c4Y-tn-M03">
+                            <connections>
+                                <action selector="tweetReplied:" destination="-1" id="XEJ-ok-jWD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Favorite" id="Zup-t3-DXt">
+                            <connections>
+                                <action selector="tweetFavorited:" destination="-1" id="eRI-NR-yv8"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
                 </toolbar>
             </subviews>

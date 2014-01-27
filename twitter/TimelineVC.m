@@ -70,6 +70,7 @@
     UINavigationController *nc = self.navigationController;
     Tweet *tweet = [[Tweet alloc] init];
     ComposeTweetViewController *ctc = [[ComposeTweetViewController alloc] initWithTweet:tweet];
+    ctc.tweets = self.tweets;
     [nc pushViewController:ctc animated:YES];
 }
 
